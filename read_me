@@ -1,4 +1,6 @@
- makefile re make toujours
+makefile re make toujours
+
+revoir la fonction join 
 
 voir pourquoi les vecteur peuvent etre stocke en temps aue structure et les plan en tant que pointeurs
 

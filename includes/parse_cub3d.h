@@ -64,7 +64,7 @@ int			ft_atoi(const char *str);
 
 void 		init_t_parse(t_parse *stock);
 void		print_struct(t_parse stock);
-char		*read_file(char *fichier);
+int		read_file(char *fichier, t_parse *stock);
 int			parsing(char *name_file, t_parse *stock);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			analyse_file(char *file, t_parse *parse);

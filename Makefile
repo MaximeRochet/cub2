@@ -40,53 +40,50 @@ HEADER	= includes/cub3d.h
 
 OBJ_PATH	= obj/
 OBJ_NAME	= ${SRCS_NAME:.c=.o}
-OBJ			= $(addprefix $(OBJ_PATH), $(OBJ_NAME))
+	OBJ			= $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-RM		=	rm -f
+RM		=	rm -rf
 CC		=	gcc
 #FSAN	=	-g -fsanitize=address
 #CFLAGS	=	-Wall -Werror -Wextra
 
-FLAGS_MLX	= -l mlx -framework OpenGL -framework AppKit -L mlx -O3 -I minilibx
-LIB_X		= mlx/libmlx.a
+#FLAGS_MLX	= -l mlx -framework OpenGL -framework AppKit -L mlx -O3 -I minilibx
+#LIB_X		= mlx/libmlx.a
 LIB_FT		= libft/libft.a
 
 $(OBJ_PATH)%.o:	$(SRCS_PATH)%.c includes/cub3d.h
-				printf "\033[2K\r$(LIGHT_PINK)Compiling:	\033[37m$<\033[36m \033[0m"
-				echo ""
-				${CC} ${CFLAGS} -I includes -c $< -o $@
+	echo "$(BLUE)\n\t\tCUB3D :\n"
+	mkdir -p obj/
+	mkdir -p obj/parsing/
+	mkdir -p obj/utils/
+	printf "\033[2K\r$(LIGHT_PINK)Compiling:	\033[37m$<\033[36m \033[0m"
+	${CC} ${CFLAGS} -I includes -c $< -o $@
 
-all:			${OBJ_PATH} ${NAME}
-					@:
+all:	librairies
+	$(MAKE) $(NAME)
 
-$(OBJ_PATH):
-				echo "$(BLUE)\n\t\tCUB3D :\n"
-				mkdir -p obj/
-				mkdir -p obj/parsing/
-				mkdir -p obj/utils/
-
-$(NAME):		${OBJ} librairies
-				$(CC) ${CFLAGS} -o ${NAME} ${OBJ} ${FLAGS_MLX} libft/*.o
+$(NAME): ${OBJ} 
+	$(CC) ${CFLAGS} -o ${NAME} ${OBJ} ${FLAGS_MLX} libft/*.o
 librairies:
-				make -C mlx
-				make -C libft
+	make -C mlx
+	make -C libft
 
 clean:
-				${RM} ${OBJ_PATH}
-				echo "\t\t$(ORANGE)[Delete objs cub3d done]\n"
-				make clean -C libft
+	${RM} ${OBJ_PATH}
+	echo "\t\t$(ORANGE)[Delete objs cub3d done]\n"
+	make clean -C libft
 
 fclean:
-				${RM} ${OBJ_PATH}
-				${RM} ${NAME}
-				echo "\t\t$(ORANGE)[Delete objs cub3d done]\n"
-				make fclean -C libft
+	${RM} ${OBJ_PATH}
+	${RM} ${NAME}
+	echo "\t\t$(ORANGE)[Delete objs cub3d done]\n"
+	make fclean -C libft
 
 clean_mlx:
-				make clean -C mlx
-				echo "\t\t$(ORANGE)[Delete objs MLX done]\n"
+	make clean -C mlx
+	echo "\t\t$(ORANGE)[Delete objs MLX done]\n"
 
 re:				fclean all
 
 norme:
-				/usr/bin/norminette $(SRCS_PATH)
+	/usr/bin/norminette $(SRCS_PATH)

@@ -11,18 +11,17 @@
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+#include <stdio.h>
 
-char	*read_file(char *fichier)
+int	read_file(char *fichier, t_parse *stock)
 {
 	int		fd;
 	char	buffer[100];
-	char	*fc;
 	int		read_value;
 	char	*tmp;
 
-	fc = NULL;
 	fd = open(fichier, O_RDONLY);
-	prinft("%s  %d\n", fichier, fd);
+	printf("|%s|  |%d|\n", fichier, fd);
 	if (fd == -1)
 		return (0);
 	read_value = 1;
@@ -30,12 +29,14 @@ char	*read_file(char *fichier)
 	{
 		read_value = read(fd, buffer, 99);
 		buffer[read_value] = '\0';
-		tmp = ft_strjoin(fc, buffer);
-		free(fc);
-		fc = tmp;
+		tmp = ft_strjoin(stock->file, buffer);
+		free(stock->file);
+		stock->file = tmp;
+		printf("% == %d\n", stock->file);
+
 	}
 	close (fd);
-	return (fc);
+	return (1);
 }
 
 int	verif_name(char *namefile, t_parse *stock)
@@ -66,16 +67,16 @@ int	print_err(char *mssg_err, t_parse *stock)
 
 int	parsing(char *name_file, t_parse *stock)
 {
-	char	*file;
+	int	verif;
 
+	verif = 0;
 	if (!name_file)
 		return (print_err("mauvais nombre d'argument", stock));
 	verif_name(name_file, stock);
-	file = read_file(name_file);
-	if (!file)
+	verif = read_file(name_file, stock);
+	if (verif == 0)
 		return (print_err("fichier illisibles", stock));
-	stock->file = file;
-	analyse_file(file, stock);
+	analyse_file(stock->file, stock);
 	if (stock->error)
 		return (0);
 	return (1);
