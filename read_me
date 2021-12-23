@@ -1,0 +1,8 @@
+ makefile re make toujours
+
+voir pourquoi les vecteur peuvent etre stocke en temps aue structure et les plan en tant que pointeurs
+
+close map seg fault si pas de joueur dans map 
+ajuster la width en fonction du code de louis slack
+
+afficher les tableaux de plan
