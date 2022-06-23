@@ -6,23 +6,9 @@
 #    By: mrochet <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/02 16:01:43 by mrochet           #+#    #+#              #
-#    Updated: 2021/06/08 15:10:53 by mrochet          ###   ########lyon.fr    #
+#    Updated: 2020/12/02 16:34:03 by mrochet          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
-
-ERASE		=	\033[2K\r
-GREY		=	\033[30m
-RED			=	\033[31m
-GREEN		=	\033[32m
-YELLOW		=	\033[33m
-BLUE		=	\033[34m
-PINK		=	\033[35m
-CYAN		=	\033[36m
-WHITE		=	\033[37m
-BOLD		=	\033[1m
-UNDER		=	\033[4m
-SUR			=	\033[7m
-END			=	\033[0m
 
 NAME = libft.a
 SRCS = ft_memset.c ft_bzero.c\
@@ -42,8 +28,7 @@ SRCS = ft_memset.c ft_bzero.c\
 	   ft_strmapi.c ft_putchar_fd.c \
 	   ft_putstr_fd.c ft_putendl_fd.c \
 	   ft_split.c ft_itoa.c \
-	   ft_putnbr_fd.c ft_lstadd_front.c \
-	   ft_atolli.c
+	   ft_putnbr_fd.c ft_lstadd_front.c
 
 BONUS = ft_lstsize.c ft_lstlast.c \
 		ft_lstadd_back.c ft_lstdelone.c \
@@ -59,23 +44,20 @@ CC		=	gcc
 CFLAGS	=	-Wall -Werror -Wextra
 
 %.o : %.c ${HEADER}	
-	@${CC} ${CFLAGS} -I includes -c $< -o $@
-	@printf "$(ERASE)$(YELLOW)$@$(END)"
+	${CC} ${CFLAGS} -I includes -c $< -o $@
 
 ${NAME}:		${OBJS}
-	@printf "$(ERASE)"
-	@ar rcs ${NAME} ${OBJS}
-	@echo "$(BOLD)$(GREEN)Compilation $(NAME) Succes !$(END)"
+	ar rcs ${NAME} ${OBJS}
 
 all: ${NAME}
 
 clean:
-	@${RM}  ${OBJS} ${OBJS_BONUS}
+	${RM}  ${OBJS} ${OBJS_BONUS}
 
 fclean:		clean
-	@${RM} ${NAME}
+	${RM} ${NAME}
 
 re:			fclean all
 
 bonus: 	${OBJS} ${OBJS_BONUS}
-	@ar rcs ${NAME} ${OBJS} ${OBJS_BONUS}
+	ar rcs ${NAME} ${OBJS} ${OBJS_BONUS}
